@@ -1,0 +1,8 @@
+.UserInputDiv {
+    text-align: center;
+    margin-top: 10%;
+}
+
+mat-slider {
+    width: 300px;
+}
