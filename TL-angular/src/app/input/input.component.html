@@ -1,24 +1,31 @@
 <div class="UserInputDiv" fxLayout="row" fxLayoutAlign="start stretch">
     <div fxLayout="column" fxLayoutAlign="start stretch">
-      <mat-slider min="1" max="10" step="1" showTickMarks discrete [displayWith]="formatLabel(true)">
+      <mat-slider min="1" max="8" step="1" showTickMarks discrete [displayWith]="formatLabel(true)">
         <input matSliderThumb>
     </mat-slider>        
-      <input matInput placeholder="Enter value">
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start stretch">
-        <mat-slider min="1" max="10" step="1" showTickMarks discrete [displayWith]="formatLabel(false)">
+        <mat-slider min="1" max="8" step="1" showTickMarks discrete [displayWith]="formatLabel(false)">
           <input matSliderThumb>
         </mat-slider>        
-      <input matInput placeholder="Enter value">
     </div>
 
     <div class="terrain">
       <div *ngFor="let vertical of Array(verticalSquares)" fxLayout="column" fxLayoutAlign="start stretch">
-        <div *ngFor="let horizontal of Array(horizontalSquares)" class="terrain-square"></div>
+        <div *ngFor="let horizontal of Array(horizontalSquares-1)" class="terrain-square"></div>
         <div class="terrain-square"></div>
       </div>
     </div>
     
+    <div class="terrain">
+      <div *ngFor="let v of Array(verticalSquares+1)" fxLayout="column" fxLayoutAlign="start stretch">
+        <input type="number">
+        <div *ngFor="let h of Array(horizontalSquares)" fxLayoutAlign="start stretch">
+          <input type="number">
+        </div>
+      </div>
+    </div>
+
 </div>
   
