@@ -18,7 +18,7 @@
       </div>
     </div>
     
-    <div class="terrain">
+    <div class="terrain margin-bottom">
       <div *ngFor="let v of Array(verticalSquares+1)" fxLayout="column" fxLayoutAlign="start stretch">
         <input type="number">
         <div *ngFor="let h of Array(horizontalSquares)" fxLayoutAlign="start stretch">
@@ -26,6 +26,8 @@
         </div>
       </div>
     </div>
+
+    <button class="calc">Calculate</button>
 
 </div>
   
