@@ -6,10 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent {
+
   verticalSquares: number = 1;
   horizontalSquares: number = 1;
-  totalInput: number = 4;
+  inputData: Array<number> = [];
   Array = Array
+
   formatLabel(isVertical: boolean) {
     return (value: number): string => {
       if (isVertical) {
@@ -22,9 +24,14 @@ export class InputComponent {
         return Math.round(value / 1000) + 'k';
       }
       console.log(this.verticalSquares, this.horizontalSquares)
-      this.totalInput = (this.verticalSquares+1)*(this.horizontalSquares+1)
-      console.log(this.totalInput)
       return `${value}`;
     };
+  }
+
+  calc() {
+    for(let i = 0; i <= (this.verticalSquares+1)*this.horizontalSquares; i++) {
+      let inputField = document.getElementById('')
+      this.inputData.push()
+    }
   }
 }
