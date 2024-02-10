@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent {
-
   verticalSquares: number = 1;
   horizontalSquares: number = 1;
   inputData: Array<number> = [];
@@ -19,19 +18,16 @@ export class InputComponent {
       } else {
         this.horizontalSquares = value;
       }
-    
-      if (value >= 1000) {
-        return Math.round(value / 1000) + 'k';
-      }
-      console.log(this.verticalSquares, this.horizontalSquares)
       return `${value}`;
     };
   }
 
   calc() {
-    for(let i = 0; i <= (this.verticalSquares+1)*this.horizontalSquares; i++) {
-      let inputField = document.getElementById('')
-      this.inputData.push()
+    for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++) {
+      let inputField = document.getElementById(`H${i}`)
+      let inputValue = (inputField as HTMLInputElement).value;
+      this.inputData.push(Number(inputValue))
     }
+    console.log(this.inputData)
   }
 }
