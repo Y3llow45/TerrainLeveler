@@ -1,12 +1,12 @@
 <div class="UserInputDiv" fxLayout="row" fxLayoutAlign="start stretch">
     <div fxLayout="column" fxLayoutAlign="start stretch">
-      <mat-slider min="1" max="8" step="1" showTickMarks discrete [displayWith]="formatLabel(true)">
+      <mat-slider min="2" max="8" step="1" showTickMarks discrete [displayWith]="formatLabel(true)">
         <input matSliderThumb>
     </mat-slider>        
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start stretch">
-        <mat-slider min="1" max="8" step="1" showTickMarks discrete [displayWith]="formatLabel(false)">
+        <mat-slider min="2" max="8" step="1" showTickMarks discrete [displayWith]="formatLabel(false)">
           <input matSliderThumb>
         </mat-slider>        
     </div>
@@ -27,5 +27,13 @@
     </div>    
     
     <button class="calc" (click)="calc()">Calculate</button>
+</div>
+
+<div class="result">
+  <p class="calculationsText">Calculations: </p>
+  <div class="Hk">
+    <p>H₀ = ( ∑H₁ + 2∑H₂ + 4∑H₄ ) / 4n</p>
+    <p>{{avarageHeight}}</p>
+  </div>
 </div>
   
