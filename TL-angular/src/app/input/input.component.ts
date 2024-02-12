@@ -6,8 +6,22 @@ import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements AfterViewInit {
-
   @ViewChild('myCanvas', { static: false }) canvas!: ElementRef<HTMLCanvasElement>;
+
+  verticalSquares: number = 2;
+  horizontalSquares: number = 2;
+  squareSize: number = 60;
+  inputData: Array<number> = [];
+  Array = Array
+  avarageH1: String = "";
+  avarageH2: String = "";
+  avarageH4: String = "";
+  avarageHeight: String = "";
+
+  lineX1: number = 50;
+  lineY1: number = 0;
+  lineX2: number = 50;
+  lineY2: number = 100;
 
   ngAfterViewInit() {
     this.drawRedLine();
@@ -44,36 +58,19 @@ export class InputComponent implements AfterViewInit {
       console.error('Canvas context not available');
       return;
     }
-    const squareWidth = canvas.width / (this.horizontalSquares);
-    const squareHeight = canvas.height / (this.verticalSquares);
-
-    const squareSize = Math.min(canvas.width / (this.horizontalSquares), canvas.height / (this.verticalSquares));
+    canvas.width = (this.horizontalSquares) * this.squareSize;
+    canvas.height = (this.verticalSquares) * this.squareSize;
 
     for (let v = 0; v <= this.verticalSquares; v++) {
       for (let h = 0; h <= this.horizontalSquares; h++) {
         ctx.fillStyle = '#ffffff'; // Set the fill color (white in this example)
-        ctx.fillRect(h * squareSize, v * squareSize, squareSize, squareSize);
-
+        ctx.fillRect(h * this.squareSize, v * this.squareSize, this.squareSize, this.squareSize);
         // Optionally, draw a border around each square
         ctx.strokeStyle = '#000000'; // Set the border color (black in this example)
-        ctx.strokeRect(h * squareSize, v * squareSize, squareSize, squareSize);
+        ctx.strokeRect(h * this.squareSize, v * this.squareSize, this.squareSize, this.squareSize);
       }
     }
   }
-
-  verticalSquares: number = 2;
-  horizontalSquares: number = 2;
-  inputData: Array<number> = [];
-  Array = Array
-  avarageH1: String = "";
-  avarageH2: String = "";
-  avarageH4: String = "";
-  avarageHeight: String = "";
-
-  lineX1: number = 50;
-  lineY1: number = 0;
-  lineX2: number = 50;
-  lineY2: number = 100;
 
   formatLabel(isVertical: boolean) {
     return (value: number): string => {
