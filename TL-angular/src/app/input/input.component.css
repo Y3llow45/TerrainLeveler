@@ -68,7 +68,7 @@ input {
     margin-top: 16px;
 }
 
-.nothing {
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
+.input-text {
+    margin-bottom: 0px;
+    padding-top: 2px;
 }

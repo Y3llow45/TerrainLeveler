@@ -12,7 +12,7 @@ export class InputComponent {
   horizontalSquares: number = 2;
   squareSize: number = 60;
   inputData: Array<number> = [];
-  Ho: number = 60;
+  Ho: number = 50;
 
   avarageH1: String = "";
   avarageH2: String = "";
@@ -135,7 +135,8 @@ export class InputComponent {
     let crossedSides = [];
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
       if(this.inputData[i] <= this.Ho) {
-        
+        let distanceToHo = this.squareSize*(this.inputData[i-1]-this.Ho) / Math.abs(this.inputData[i-1]-this.inputData[i]);
+        console.log(distanceToHo);
       }
     }
     this.drawRedLine(85,0,170/2,120);
