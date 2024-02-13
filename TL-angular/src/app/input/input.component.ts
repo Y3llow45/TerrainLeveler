@@ -12,11 +12,13 @@ export class InputComponent {
   horizontalSquares: number = 2;
   squareSize: number = 60;
   inputData: Array<number> = [];
-  Array = Array
+  Ho: number = 60;
+
   avarageH1: String = "";
   avarageH2: String = "";
   avarageH4: String = "";
   avarageHeight: String = "";
+  Array = Array
 
   lineX1: number = 50;
   lineY1: number = 0;
@@ -58,10 +60,9 @@ export class InputComponent {
 
     for (let v = 0; v <= this.verticalSquares; v++) {
       for (let h = 0; h <= this.horizontalSquares; h++) {
-        ctx.fillStyle = '#ffffff'; // Set the fill color (white in this example)
+        ctx.fillStyle = '#ffffff';
         ctx.fillRect(h * this.squareSize, v * this.squareSize, this.squareSize, this.squareSize);
-        // Optionally, draw a border around each square
-        ctx.strokeStyle = '#000000'; // Set the border color (black in this example)
+        ctx.strokeStyle = '#000000';
         ctx.strokeRect(h * this.squareSize, v * this.squareSize, this.squareSize, this.squareSize);
       }
     }
@@ -126,10 +127,17 @@ export class InputComponent {
 
     this.avarageH4 = `∑H₄ = ${h4.join('+')} = ${h4.reduce((sum, value) => sum + value, 0)}`;
     this.avarageHeight = `H₀ = ( ${h1_1+h1_2+h1_3+h1_4} + 2*${h2_1+h2_2+h2_3+h2_4} + 4*${h4.reduce((sum, value) => sum + value, 0)} ) / 4*${this.verticalSquares*this.horizontalSquares} =  ${((h1_1+h1_2+h1_3+h1_4+(2*(h2_1+h2_2+h2_3+h2_4))+(4*(h4.reduce((sum, value) => sum + value, 0))))/(4*this.verticalSquares*this.horizontalSquares)).toFixed(2)}`;
-    this.drawZeroLine()
+    this.Ho = Number(((h1_1+h1_2+h1_3+h1_4+(2*(h2_1+h2_2+h2_3+h2_4))+(4*(h4.reduce((sum, value) => sum + value, 0))))/(4*this.verticalSquares*this.horizontalSquares)).toFixed(2));
+    this.calcZeroLine()
   }
 
-  drawZeroLine() {
+  calcZeroLine() {
+    let crossedSides = [];
+    for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
+      if(this.inputData[i] <= this.Ho) {
+        
+      }
+    }
     this.drawRedLine(85,0,170/2,120);
   }
 }

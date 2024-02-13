@@ -57,3 +57,18 @@ input {
 .calculationsText {
     font-size: 20px;
 }
+
+.square-input {
+    display: flex;
+    justify-content: center;
+}
+
+.square-size-input {
+    height: 21px;
+    margin-top: 16px;
+}
+
+.nothing {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
