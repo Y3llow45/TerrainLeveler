@@ -76,6 +76,8 @@ export class InputComponent {
         this.horizontalSquares = value;
       }
       this.updateCanvas();
+      console.log(this.verticalSquares)
+      console.log(this.horizontalSquares)
       return `${value}`;
     };
   }
