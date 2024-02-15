@@ -93,6 +93,11 @@ export class InputComponent {
     this.calcHk()
   }
 
+  loadDummy() {
+    this.inputData = [45, 55, 62, 47, 57, 64, 49, 58, 65];
+    this.calcHk()
+  }
+
   calcHk() {
     let h1_1 = this.inputData[0];
     let h1_2 = this.inputData[this.verticalSquares];
@@ -135,12 +140,18 @@ export class InputComponent {
 
   calcZeroLine() {
     let crossedSides = [];
-    for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
+    let distances = []
+    for(let i = 1; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
       if(this.inputData[i] <= this.Ho) {
-        let distanceToHo = this.squareSize*(this.inputData[i-1]-this.Ho) / Math.abs(this.inputData[i-1]-this.inputData[i]);
-        console.log(distanceToHo);
+        let distanceToHo = (Math.abs(this.squareSize*(this.inputData[i-1]-this.Ho)) / Math.abs(this.inputData[i-1]-this.inputData[i])).toFixed(2);
+        console.log(`${this.squareSize} * (${this.inputData[i-1]} - ${this.Ho}) / ${this.inputData[i-1]} - ${this.inputData[i]}`)
+        console.log('Distance: '+distanceToHo);
+        crossedSides.push(i);
+        distances.push(distanceToHo);
       }
     }
-    this.drawRedLine(85,0,170/2,120);
+    console.log('Crossed sides: '+crossedSides);
+    this.drawRedLine(Number(distances[0]),0,Number(distances[1]),120);
+    this.drawRedLine(Number(distances[1]),0,Number(distances[2]),120);
   }
 }
