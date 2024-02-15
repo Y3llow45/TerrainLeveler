@@ -55,11 +55,13 @@ export class InputComponent {
       console.error('Canvas context not available');
       return;
     }
-    canvas.width = (this.horizontalSquares) * this.squareSize;
-    canvas.height = (this.verticalSquares) * this.squareSize;
+    /*canvas.width = (this.horizontalSquares) * this.squareSize;
+    canvas.height = (this.verticalSquares) * this.squareSize;*/
+    canvas.width = (this.verticalSquares) * this.squareSize;
+    canvas.height = (this.horizontalSquares) * this.squareSize;
 
-    for (let v = 0; v <= this.verticalSquares; v++) {
-      for (let h = 0; h <= this.horizontalSquares; h++) {
+    for (let v = 0; v <= this.horizontalSquares; v++) {
+      for (let h = 0; h <= this.verticalSquares; h++) {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(h * this.squareSize, v * this.squareSize, this.squareSize, this.squareSize);
         ctx.strokeStyle = '#000000';
@@ -76,8 +78,6 @@ export class InputComponent {
         this.horizontalSquares = value;
       }
       this.updateCanvas();
-      console.log(this.verticalSquares)
-      console.log(this.horizontalSquares)
       return `${value}`;
     };
   }
@@ -85,6 +85,7 @@ export class InputComponent {
   calc() {
     this.inputData = [];
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++) {
+      console.log(i)
       let inputField = document.getElementById(`H${i}`)
       let inputValue = (inputField as HTMLInputElement).value;
       this.inputData.push(Number(inputValue))
@@ -138,20 +139,26 @@ export class InputComponent {
     this.calcZeroLine()
   }
 
-  calcZeroLine() {
+  /*calcZeroLine() {
     let crossedSides = [];
-    let distances = []
-    for(let i = 1; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
+    for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
       if(this.inputData[i] <= this.Ho) {
         let distanceToHo = (Math.abs(this.squareSize*(this.inputData[i-1]-this.Ho)) / Math.abs(this.inputData[i-1]-this.inputData[i])).toFixed(2);
-        console.log(`${this.squareSize} * (${this.inputData[i-1]} - ${this.Ho}) / ${this.inputData[i-1]} - ${this.inputData[i]}`)
-        console.log('Distance: '+distanceToHo);
         crossedSides.push(i);
-        distances.push(distanceToHo);
       }
     }
-    console.log('Crossed sides: '+crossedSides);
-    this.drawRedLine(Number(distances[0]),0,Number(distances[1]),120);
-    this.drawRedLine(Number(distances[1]),0,Number(distances[2]),120);
+    this.drawRedLine(85,0,85,120);
+  }*/
+  calcZeroLine() {
+    let crossedSides = [];
+    for(let i = 0; i < this.verticalSquares+1; i++){
+      for(let i = 0; i < this.horizontalSquares; i++){
+        if(this.inputData[i] < this.Ho && this.inputData[i+1]) {
+          let distanceFromI = (this.squareSize - Math.abs(this.squareSize*(this.inputData[i] - this.Ho)) / Math.abs(this.inputData[i]-this.inputData[i+1]) ).toFixed(2);
+          console.log(distanceFromI);
+        }
+      }
+    }
+    this.drawRedLine(85,0,85,120);
   }
 }

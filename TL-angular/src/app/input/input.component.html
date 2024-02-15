@@ -30,9 +30,9 @@
     </div>
 
     <div class="terrain margin-bottom">
-      <div *ngFor="let v of Array.from(Array(horizontalSquares + 1).keys())" fxLayout="column" fxLayoutAlign="start stretch">
-        <div *ngFor="let h of Array.from(Array(verticalSquares + 1).keys())" fxLayoutAlign="start stretch">
-          <input type="number" [id]="'H' + (v + h * (1 + verticalSquares))">
+      <div *ngFor="let h of Array.from(Array(verticalSquares + 1).keys())" fxLayout="column" fxLayoutAlign="start stretch">
+        <div *ngFor="let v of Array.from(Array(horizontalSquares + 1).keys())" fxLayoutAlign="start stretch">
+          <input type="number" [id]="'H' + (h + v * (1 + verticalSquares))">
         </div>
       </div>
     </div>    
