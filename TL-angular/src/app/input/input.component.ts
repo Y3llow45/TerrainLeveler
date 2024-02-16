@@ -55,8 +55,6 @@ export class InputComponent {
       console.error('Canvas context not available');
       return;
     }
-    /*canvas.width = (this.horizontalSquares) * this.squareSize;
-    canvas.height = (this.verticalSquares) * this.squareSize;*/
     canvas.width = (this.verticalSquares) * this.squareSize;
     canvas.height = (this.horizontalSquares) * this.squareSize;
 
@@ -144,9 +142,10 @@ export class InputComponent {
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
       if(this.inputData[i] <= this.Ho) {
         let distanceToHo = (Math.abs(this.squareSize*(this.inputData[i-1]-this.Ho)) / Math.abs(this.inputData[i-1]-this.inputData[i])).toFixed(2);
-        crossedSides.push(i);
+        crossedSides.push(distanceToHo);
       }
     }
+    console.log(crossedSides)
     this.drawRedLine(85,0,85,120);
   }*/
   calcZeroLine() {
