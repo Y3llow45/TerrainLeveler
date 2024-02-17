@@ -10,7 +10,7 @@ export class InputComponent {
 
   verticalSquares: number = 2;
   horizontalSquares: number = 2;
-  squareSize: number = 60;
+  squareSize: number = 50;
   inputData: Array<number> = [];
   Ho: number = 50;
 
@@ -150,11 +150,16 @@ export class InputComponent {
   }*/
   calcZeroLine() {
     let crossedSides = [];
-    for(let i = 0; i < this.verticalSquares+1; i++){
-      for(let i = 0; i < this.horizontalSquares; i++){
-        if(this.inputData[i] < this.Ho && this.inputData[i+1]) {
+    for(let v = 0; v < this.verticalSquares+1; v++){
+      for(let h = 0; h < this.horizontalSquares; h++){
+        let i = v*h + h;
+        console.log(`${this.inputData[i]} < ${this.Ho} $$ ${this.inputData[i+1]} > ${this.Ho}`)
+        if(this.inputData[i] < this.Ho && this.inputData[i+1] > this.Ho) {
           let distanceFromI = (this.squareSize - Math.abs(this.squareSize*(this.inputData[i] - this.Ho)) / Math.abs(this.inputData[i]-this.inputData[i+1]) ).toFixed(2);
-          console.log(distanceFromI);
+          let distanceFromI2 = (((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1]-this.inputData[i])).toFixed(2);
+          //console.log(`${this.squareSize} - ${this.squareSize} * ( ${this.inputData[i]} - ${this.Ho}) / ${this.inputData[i]} - ${this.inputData[i+1]}`)
+          console.log(`${this.Ho} - ${this.inputData[i]} * ${this.squareSize} / ${this.inputData[i+1]} - ${this.inputData[i]}`)
+          console.log(distanceFromI2);
         }
       }
     }
