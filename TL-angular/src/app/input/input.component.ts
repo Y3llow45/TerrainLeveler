@@ -166,6 +166,11 @@ export class InputComponent {
           //console.log(`${h*this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`)
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
+        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho){
+          let distanceFromI2 = ((h+1)*this.squareSize-(((this.Ho - this.inputData[i+1])*this.squareSize)/Math.abs(this.inputData[i] - this.inputData[i+1]))).toFixed(2);
+          console.log(distanceFromI2);
+          crossedSides.push(distanceFromI2);
+          crossedSidesLevel.push(v)
         }
       }
     }
