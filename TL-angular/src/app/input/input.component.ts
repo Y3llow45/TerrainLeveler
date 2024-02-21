@@ -154,20 +154,22 @@ export class InputComponent {
     for(let v = 0; v < this.verticalSquares+1; v++){
       for(let h = 0; h < this.horizontalSquares+1; h++){
         let i = (v*(this.horizontalSquares+1)) + h;
-        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho) {
+        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && i%(this.horizontalSquares+1) == 0) {
           //let distanceFromI = (this.squareSize - Math.abs(this.squareSize*(this.inputData[i] - this.Ho)) / Math.abs(this.inputData[i]-this.inputData[i+1]) ).toFixed(2);
           let distanceFromI2 = (h*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1]-this.inputData[i]))).toFixed(2);
           //console.log(`${this.squareSize} - ${this.squareSize} * ( ${this.inputData[i]} - ${this.Ho}) / ${this.inputData[i]} - ${this.inputData[i+1]}`)
           //console.log(`${this.Ho} - ${this.inputData[i]} * ${this.squareSize} / ${this.inputData[i+1]} - ${this.inputData[i]}`)
           //console.log(`${h}*${v} ${i}`)
+          console.log(`${h}*${this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`);
           console.log(distanceFromI2);
           //console.log(((v*(h+1))+h))
           //console.log(`${v} * (${h} + ${1}) + ${h}`)
           //console.log(`${h*this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`)
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
-        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho){
+        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && i%(this.horizontalSquares+1) == 0){
           let distanceFromI2 = ((h+1)*this.squareSize-(((this.Ho - this.inputData[i+1])*this.squareSize)/Math.abs(this.inputData[i] - this.inputData[i+1]))).toFixed(2);
+          console.log(`(${h}+1)*${this.squareSize}-(((${this.Ho} - ${this.inputData[i+1]})*${this.squareSize})/Math.abs(${this.inputData[i]} - ${this.inputData[i+1]}))`)
           console.log(distanceFromI2);
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
