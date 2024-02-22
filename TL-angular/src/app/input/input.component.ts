@@ -174,6 +174,8 @@ export class InputComponent {
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
         }
+        // TODO if for all vertical sides
+        // For all this.horizontalSquares+1 => For => if v*(this.horizontalSquares+1)) + h and (v+1)*(this.horizontalSquares+1)) + h
       }
     }
     console.log(crossedSidesLevel)
