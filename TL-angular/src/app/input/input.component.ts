@@ -154,7 +154,8 @@ export class InputComponent {
     for(let v = 0; v < this.verticalSquares+1; v++){
       for(let h = 0; h < this.horizontalSquares+1; h++){
         let i = (v*(this.horizontalSquares+1)) + h;
-        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && i%(this.horizontalSquares+1) == 0) {
+        console.log(`${this.inputData[i]} <= ${this.Ho} && ${this.inputData[i+1]} >= ${this.Ho} && ${i%(this.horizontalSquares+1)}`)
+        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && (i%(this.horizontalSquares+1) == 0) || i==1) {
           //let distanceFromI = (this.squareSize - Math.abs(this.squareSize*(this.inputData[i] - this.Ho)) / Math.abs(this.inputData[i]-this.inputData[i+1]) ).toFixed(2);
           let distanceFromI2 = (h*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1]-this.inputData[i]))).toFixed(2);
           //console.log(`${this.squareSize} - ${this.squareSize} * ( ${this.inputData[i]} - ${this.Ho}) / ${this.inputData[i]} - ${this.inputData[i+1]}`)
@@ -167,13 +168,20 @@ export class InputComponent {
           //console.log(`${h*this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`)
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
-        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && i%(this.horizontalSquares+1) == 0){
+        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && (i%(this.horizontalSquares+1) == 0) || i==1){
           let distanceFromI2 = ((h+1)*this.squareSize-(((this.Ho - this.inputData[i+1])*this.squareSize)/Math.abs(this.inputData[i] - this.inputData[i+1]))).toFixed(2);
           console.log(`(${h}+1)*${this.squareSize}-(((${this.Ho} - ${this.inputData[i+1]})*${this.squareSize})/Math.abs(${this.inputData[i]} - ${this.inputData[i+1]}))`)
           console.log(distanceFromI2);
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
         }
+        /*if(i <= (this.horizontalSquares+1)*this.verticalSquares){
+          if(this.inputData[i] <= this.Ho && this.inputData[i+1+this.horizontalSquares] >= this.Ho) {
+            let distanceFromI2 = (h*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1+this.horizontalSquares]-this.inputData[i]))).toFixed(2);
+            crossedSides.push(distanceFromI2);
+            crossedSidesLevel.push(v)
+          }
+        }*/
         // TODO if for all vertical sides
         // For all this.horizontalSquares+1 => For => if v*(this.horizontalSquares+1)) + h and (v+1)*(this.horizontalSquares+1)) + h
       }
@@ -184,3 +192,4 @@ export class InputComponent {
     }
   }
 }
+//Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
