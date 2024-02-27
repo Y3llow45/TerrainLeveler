@@ -110,6 +110,13 @@ export class InputComponent {
     console.log(this.inputData)
     this.calcHk()
   }
+  loadThirdTest() { 
+    this.inputData = [ 12, 8, 7, 2,
+                       12, 8, 7, 2,
+                       12, 8, 7, 2]
+    console.log(this.inputData)
+    this.calcHk()
+  }
 
   calcHk() {
     let h1_1 = this.inputData[0];
@@ -165,14 +172,19 @@ export class InputComponent {
   calcZeroLine() {
     let crossedSides = [];
     let crossedSidesLevel = [];
+    console.log(`Size horizontal: ${this.verticalSquares} vertical: ${this.horizontalSquares}`)
+    let a = this.horizontalSquares;
+    this.horizontalSquares = this.verticalSquares;
+    this.verticalSquares = a;
     //let crossedVSides = [];
     //let crossedVSidesLevel = [];
     for(let v = 0; v < this.verticalSquares+1; v++){
       for(let h = 0; h < this.horizontalSquares+1; h++){
         let i = (v*(this.horizontalSquares+1)) + h;
         console.log(`${this.inputData[i]} <= ${this.Ho} && ${this.inputData[i+1]} >= ${this.Ho} && ${i%(this.horizontalSquares+1)}`)
-        console.log(`h is ${h} !== ${this.horizontalSquares}`)
-        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && h !== this.horizontalSquares) {
+        console.log(`h is ${h} !== ${this.horizontalSquares}    also i = ${i}  v=${v}`)
+        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && i !== this.horizontalSquares && h!== this.horizontalSquares) {
+          console.log(`${i} !== ${this.horizontalSquares}`)
           //let distanceFromI = (this.squareSize - Math.abs(this.squareSize*(this.inputData[i] - this.Ho)) / Math.abs(this.inputData[i]-this.inputData[i+1]) ).toFixed(2);
           let distanceFromI2 = (h*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1]-this.inputData[i]))).toFixed(2);
           //console.log(`${this.squareSize} - ${this.squareSize} * ( ${this.inputData[i]} - ${this.Ho}) / ${this.inputData[i]} - ${this.inputData[i+1]}`)
@@ -185,7 +197,7 @@ export class InputComponent {
           //console.log(`${h*this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`)
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
-        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && i !== this.horizontalSquares+1){
+        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && i !== this.horizontalSquares && h!== this.horizontalSquares){
           let distanceFromI2 = ((h+1)*this.squareSize-(((this.Ho - this.inputData[i+1])*this.squareSize)/Math.abs(this.inputData[i] - this.inputData[i+1]))).toFixed(2);
           console.log(`(${h}+1)*${this.squareSize}-(((${this.Ho} - ${this.inputData[i+1]})*${this.squareSize})/Math.abs(${this.inputData[i]} - ${this.inputData[i+1]}))`)
           console.log(distanceFromI2);
