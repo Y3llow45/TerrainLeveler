@@ -97,6 +97,20 @@ export class InputComponent {
     this.calcHk()
   }
 
+  loadHomework() {
+    this.inputData = [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
+    console.log(this.inputData)
+    this.Ho = 54;
+    this.calcZeroLine()
+  }
+  loadSecondTest() {
+    this.inputData = [ 3, 5, 7, 12,
+                       3, 5, 7, 12,
+                       3, 5, 8, 13 ]
+    console.log(this.inputData)
+    this.calcHk()
+  }
+
   calcHk() {
     let h1_1 = this.inputData[0];
     let h1_2 = this.inputData[this.verticalSquares];
@@ -151,11 +165,14 @@ export class InputComponent {
   calcZeroLine() {
     let crossedSides = [];
     let crossedSidesLevel = [];
+    //let crossedVSides = [];
+    //let crossedVSidesLevel = [];
     for(let v = 0; v < this.verticalSquares+1; v++){
       for(let h = 0; h < this.horizontalSquares+1; h++){
         let i = (v*(this.horizontalSquares+1)) + h;
         console.log(`${this.inputData[i]} <= ${this.Ho} && ${this.inputData[i+1]} >= ${this.Ho} && ${i%(this.horizontalSquares+1)}`)
-        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && (i%(this.horizontalSquares+1) == 0) || i==1) {
+        console.log(`h is ${h} !== ${this.horizontalSquares}`)
+        if(this.inputData[i] <= this.Ho && this.inputData[i+1] >= this.Ho && h !== this.horizontalSquares) {
           //let distanceFromI = (this.squareSize - Math.abs(this.squareSize*(this.inputData[i] - this.Ho)) / Math.abs(this.inputData[i]-this.inputData[i+1]) ).toFixed(2);
           let distanceFromI2 = (h*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1]-this.inputData[i]))).toFixed(2);
           //console.log(`${this.squareSize} - ${this.squareSize} * ( ${this.inputData[i]} - ${this.Ho}) / ${this.inputData[i]} - ${this.inputData[i+1]}`)
@@ -168,7 +185,7 @@ export class InputComponent {
           //console.log(`${h*this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`)
           crossedSides.push(distanceFromI2);
           crossedSidesLevel.push(v)
-        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && (i%(this.horizontalSquares+1) == 0) || i==1){
+        }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && i !== this.horizontalSquares+1){
           let distanceFromI2 = ((h+1)*this.squareSize-(((this.Ho - this.inputData[i+1])*this.squareSize)/Math.abs(this.inputData[i] - this.inputData[i+1]))).toFixed(2);
           console.log(`(${h}+1)*${this.squareSize}-(((${this.Ho} - ${this.inputData[i+1]})*${this.squareSize})/Math.abs(${this.inputData[i]} - ${this.inputData[i+1]}))`)
           console.log(distanceFromI2);
@@ -177,19 +194,19 @@ export class InputComponent {
         }
         /*if(i <= (this.horizontalSquares+1)*this.verticalSquares){
           if(this.inputData[i] <= this.Ho && this.inputData[i+1+this.horizontalSquares] >= this.Ho) {
-            let distanceFromI2 = (h*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1+this.horizontalSquares]-this.inputData[i]))).toFixed(2);
-            crossedSides.push(distanceFromI2);
-            crossedSidesLevel.push(v)
+            let distanceFromI2 = (v*this.squareSize+(((this.Ho - this.inputData[i])*this.squareSize)/(this.inputData[i+1+this.horizontalSquares]-this.inputData[i]))).toFixed(2);
+            crossedVSides.push(distanceFromI2);
+            crossedVSidesLevel.push(v)
           }
         }*/
         // TODO if for all vertical sides
         // For all this.horizontalSquares+1 => For => if v*(this.horizontalSquares+1)) + h and (v+1)*(this.horizontalSquares+1)) + h
       }
     }
-    console.log(crossedSidesLevel)
     for(let i = 0; i < crossedSides.length-1; i++) {
       this.drawRedLine(Number(crossedSides[i]),Number(crossedSidesLevel[i])*this.squareSize,Number(crossedSides[i+1]),Number(crossedSidesLevel[i+1])*this.squareSize);
     }
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
+// [ 3, 5, 7, 12, 3, 5, 7, 12, 3, 5, … ]
