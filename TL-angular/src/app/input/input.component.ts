@@ -98,9 +98,11 @@ export class InputComponent {
   }
 
   loadHomework() {
-    this.inputData = [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
+    this.inputData = [ 55.24, 53.24, 49.04, 45.04,
+                       60.54, 58.54, 55.04, 48.84,
+                       67.64, 65.64, 59.64, 49.94 ]
     console.log(this.inputData)
-    this.Ho = 54;
+    this.Ho = 52;
     this.calcZeroLine()
   }
   loadSecondTest() {
