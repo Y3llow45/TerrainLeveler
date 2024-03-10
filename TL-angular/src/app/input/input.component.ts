@@ -25,7 +25,7 @@ export class InputComponent {
   lineX2: number = 50;
   lineY2: number = 100;
 
-  drawRedLine(a:number, b:number, c:number, d:number) {
+  drawLine(a:number, b:number, c:number, d:number, color:string) {
     const canvas = this.canvas.nativeElement;
     if (!canvas) {
       console.error('Canvas element not found');
@@ -39,11 +39,10 @@ export class InputComponent {
     ctx.beginPath();
     ctx.moveTo(a, b); // 50, 0
     ctx.lineTo(c, d); // 50, 100
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = color;
     ctx.lineWidth = 2;
     ctx.stroke();
   }
-
   updateCanvas() {
     const canvas = this.canvas.nativeElement;
     if (!canvas) {
@@ -67,7 +66,6 @@ export class InputComponent {
       }
     }
   }
-
   formatLabel(isVertical: boolean) {
     return (value: number): string => {
       if (isVertical) {
@@ -79,7 +77,6 @@ export class InputComponent {
       return `${value}`;
     };
   }
-
   calc() {
     this.inputData = [];
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++) {
@@ -90,13 +87,11 @@ export class InputComponent {
     console.log(this.inputData)
     this.calcHk()
   }
-
   loadDummy() {
     this.inputData = [45, 55, 62, 47, 57, 64, 49, 58, 65];
     console.log(this.inputData)
     this.calcHk()
   }
-
   loadHomework() {
     this.inputData = [ 55.24, 53.24, 49.04, 45.04,
                        60.54, 58.54, 55.04, 48.84,
@@ -159,7 +154,6 @@ export class InputComponent {
     this.Ho = Number(((h1_1+h1_2+h1_3+h1_4+(2*(h2_1+h2_2+h2_3+h2_4))+(4*(h4.reduce((sum, value) => sum + value, 0))))/(4*this.verticalSquares*this.horizontalSquares)).toFixed(2));
     this.calcZeroLine()
   }
-
   /*calcZeroLine() {
     let crossedSides = [];
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++){
@@ -218,7 +212,26 @@ export class InputComponent {
       }
     }
     for(let i = 0; i < crossedSides.length-1; i++) {
-      this.drawRedLine(Number(crossedSides[i]),Number(crossedSidesLevel[i])*this.squareSize,Number(crossedSides[i+1]),Number(crossedSidesLevel[i+1])*this.squareSize);
+      this.drawLine(Number(crossedSides[i]),Number(crossedSidesLevel[i])*this.squareSize,Number(crossedSides[i+1]),Number(crossedSidesLevel[i+1])*this.squareSize, 'red');
+    }
+    console.log(crossedSides)
+    this.drawTriangles(crossedSides)
+  }
+
+  drawTriangles(crossedSides: Array<string>) {
+    if(Number(crossedSides[0]) < Number(crossedSides[1])) {
+      for(let h = 0; h <= this.horizontalSquares; h++){
+        for(let v = 0; v <= this.verticalSquares; v++) {
+          this.drawLine((h)*this.squareSize, v*this.squareSize, (h*this.squareSize)+this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
+        }
+      }
+    }else if(Number(crossedSides[0]) > Number(crossedSides[1])){
+      for(let h = 0; h <= this.horizontalSquares; h++){
+        for(let v = 0; v <= this.verticalSquares; v++) {
+          console.log(`(${h}+1)*this.squareSize, ${v}*this.squareSize, (${h}*${this.squareSize})+this.squareSize, (${v}*${this.squareSize})+this.squareSize, 'green'`)
+          this.drawLine((h+1)*this.squareSize, v*this.squareSize, h*this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
+        }
+      }
     }
   }
 }
