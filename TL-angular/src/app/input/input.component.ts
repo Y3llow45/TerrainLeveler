@@ -219,20 +219,29 @@ export class InputComponent {
   }
 
   drawTriangles(crossedSides: Array<string>) {
-    if(Number(crossedSides[0]) < Number(crossedSides[1])) {
-      for(let h = 0; h <= this.horizontalSquares; h++){
-        for(let v = 0; v <= this.verticalSquares; v++) {
-          this.drawLine((h)*this.squareSize, v*this.squareSize, (h*this.squareSize)+this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
+    for(let i = 0; i < crossedSides.length; i++) {
+      if(Number(crossedSides[i]) < Number(crossedSides[i+1])) {
+        for(let h = 0; h <= this.horizontalSquares; h++){
+          for(let v = 0; v <= this.verticalSquares; v++) {
+            this.drawLine((h)*this.squareSize, v*this.squareSize, (h*this.squareSize)+this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
+            break
+          }
         }
-      }
-    }else if(Number(crossedSides[0]) > Number(crossedSides[1])){
-      for(let h = 0; h <= this.horizontalSquares; h++){
-        for(let v = 0; v <= this.verticalSquares; v++) {
-          console.log(`(${h}+1)*this.squareSize, ${v}*this.squareSize, (${h}*${this.squareSize})+this.squareSize, (${v}*${this.squareSize})+this.squareSize, 'green'`)
-          this.drawLine((h+1)*this.squareSize, v*this.squareSize, h*this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
+      }else if(Number(crossedSides[i]) > Number(crossedSides[i+1])){
+        for(let h = 0; h <= this.horizontalSquares; h++){
+          for(let v = 0; v <= this.verticalSquares; v++) {
+            console.log(`(${h}+1)*this.squareSize, ${v}*this.squareSize, (${h}*${this.squareSize})+this.squareSize, (${v}*${this.squareSize})+this.squareSize, 'green'`)
+            this.drawLine((h+1)*this.squareSize, v*this.squareSize, h*this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
+            break
+          }
         }
       }
     }
+    this.findIntersected()
+  }
+
+  findIntersected( ) {
+    
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
