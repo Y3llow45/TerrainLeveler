@@ -24,6 +24,8 @@ export class InputComponent {
   lineY1: number = 0;
   lineX2: number = 50;
   lineY2: number = 100;
+  direction: string = 'left';
+  HoPoints!: Array<string>;
 
   drawLine(a:number, b:number, c:number, d:number, color:string) {
     const canvas = this.canvas.nativeElement;
@@ -215,25 +217,35 @@ export class InputComponent {
       this.drawLine(Number(crossedSides[i]),Number(crossedSidesLevel[i])*this.squareSize,Number(crossedSides[i+1]),Number(crossedSidesLevel[i+1])*this.squareSize, 'red');
     }
     console.log(crossedSides)
+    this.HoPoints = crossedSides
     this.drawTriangles(crossedSides)
   }
 
   drawTriangles(crossedSides: Array<string>) {
+    let straight = true;
     for(let i = 0; i < crossedSides.length; i++) {
       if(Number(crossedSides[i]) < Number(crossedSides[i+1])) {
+        straight = false;
         for(let h = 0; h <= this.horizontalSquares; h++){
           for(let v = 0; v <= this.verticalSquares; v++) {
             this.drawLine((h)*this.squareSize, v*this.squareSize, (h*this.squareSize)+this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
-            break
           }
         }
       }else if(Number(crossedSides[i]) > Number(crossedSides[i+1])){
+        straight = false;
+        this.direction = 'right'
         for(let h = 0; h <= this.horizontalSquares; h++){
           for(let v = 0; v <= this.verticalSquares; v++) {
             console.log(`(${h}+1)*this.squareSize, ${v}*this.squareSize, (${h}*${this.squareSize})+this.squareSize, (${v}*${this.squareSize})+this.squareSize, 'green'`)
             this.drawLine((h+1)*this.squareSize, v*this.squareSize, h*this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
-            break
           }
+        }
+      }
+    }
+    if(straight) {
+      for(let h = 0; h <= this.horizontalSquares; h++){
+        for(let v = 0; v <= this.verticalSquares; v++) {
+          this.drawLine((h)*this.squareSize, v*this.squareSize, (h*this.squareSize)+this.squareSize, (v*this.squareSize)+this.squareSize, 'green')
         }
       }
     }
