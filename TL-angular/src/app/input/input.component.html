@@ -13,8 +13,14 @@
     </div>
 
     <div class="square-input">
-      <p class="input-text">Enter square size: </p>
-      <input type="number" class="square-size-input" [defaultValue]="50">       
+      <div>
+        <p >(Optional) Enter square size: </p>
+        <input type="number" class="square-size-input" id='square-size' [defaultValue]="50">
+      </div>
+      <div>
+        <p >(Optional) Enter H₀: </p>
+        <input type="number" class="square-size-input">   
+      </div>
   </div>
    <!-- <div class="terrain">
       <div *ngFor="let vertical of Array(verticalSquares)" fxLayout="column" fxLayoutAlign="start stretch">

@@ -80,6 +80,8 @@ export class InputComponent {
     };
   }
   calc() {
+    let squareSizeInputField = document.getElementById(`square-size`)
+    this.squareSize = Number((squareSizeInputField as HTMLInputElement).value);
     this.inputData = [];
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++) {
       let inputField = document.getElementById(`H${i}`)
