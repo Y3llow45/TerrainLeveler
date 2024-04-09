@@ -27,6 +27,9 @@ export class InputComponent {
   direction: string = 'left';
   HoPoints!: Array<string>;
 
+  crossedSides: Array<string> = [];
+  crossedSidesLevel: Array<number> = [];
+
   drawLine(a:number, b:number, c:number, d:number, color:string) {
     const canvas = this.canvas.nativeElement;
     if (!canvas) {
@@ -170,8 +173,8 @@ export class InputComponent {
     this.drawRedLine(85,0,85,120);
   }*/
   calcZeroLine() {
-    let crossedSides = [];
-    let crossedSidesLevel = [];
+    this.crossedSides = [];
+    this.crossedSidesLevel = [];
     console.log(`Size horizontal: ${this.verticalSquares} vertical: ${this.horizontalSquares}`)
     let a = this.horizontalSquares;
     this.horizontalSquares = this.verticalSquares;
@@ -195,14 +198,14 @@ export class InputComponent {
           //console.log(((v*(h+1))+h))
           //console.log(`${v} * (${h} + ${1}) + ${h}`)
           //console.log(`${h*this.squareSize}+(((${this.Ho} - ${this.inputData[i]})*${this.squareSize})/(${this.inputData[i+1]}-${this.inputData[i]}))`)
-          crossedSides.push(distanceFromI2);
-          crossedSidesLevel.push(v)
+          this.crossedSides.push(distanceFromI2);
+          this.crossedSidesLevel.push(v)
         }else if(this.inputData[i] > this.Ho && this.inputData[i+1] < this.Ho && i !== this.horizontalSquares && h!== this.horizontalSquares){
           let distanceFromI2 = ((h+1)*this.squareSize-(((this.Ho - this.inputData[i+1])*this.squareSize)/Math.abs(this.inputData[i] - this.inputData[i+1]))).toFixed(2);
           console.log(`(${h}+1)*${this.squareSize}-(((${this.Ho} - ${this.inputData[i+1]})*${this.squareSize})/Math.abs(${this.inputData[i]} - ${this.inputData[i+1]}))`)
           console.log(distanceFromI2);
-          crossedSides.push(distanceFromI2);
-          crossedSidesLevel.push(v)
+          this.crossedSides.push(distanceFromI2);
+          this.crossedSidesLevel.push(v)
         }
         /*if(i <= (this.horizontalSquares+1)*this.verticalSquares){
           if(this.inputData[i] <= this.Ho && this.inputData[i+1+this.horizontalSquares] >= this.Ho) {
@@ -215,12 +218,13 @@ export class InputComponent {
         // For all this.horizontalSquares+1 => For => if v*(this.horizontalSquares+1)) + h and (v+1)*(this.horizontalSquares+1)) + h
       }
     }
-    for(let i = 0; i < crossedSides.length-1; i++) {
-      this.drawLine(Number(crossedSides[i]),Number(crossedSidesLevel[i])*this.squareSize,Number(crossedSides[i+1]),Number(crossedSidesLevel[i+1])*this.squareSize, 'red');
+    for(let i = 0; i < this.crossedSides.length-1; i++) {
+      this.drawLine(Number(this.crossedSides[i]),Number(this.crossedSidesLevel[i])*this.squareSize,Number(this.crossedSides[i+1]),Number(this.crossedSidesLevel[i+1])*this.squareSize, 'red');
     }
-    console.log(crossedSides)
-    this.HoPoints = crossedSides
-    this.drawTriangles(crossedSides)
+    console.log(this.crossedSides)
+    console.log(this.crossedSidesLevel)
+    this.HoPoints = this.crossedSides
+    this.drawTriangles(this.crossedSides)
   }
 
   drawTriangles(crossedSides: Array<string>) {
@@ -255,7 +259,14 @@ export class InputComponent {
   }
 
   findIntersected( ) {
-    
+    let difference = [];
+    for(let i = 0; i < this.crossedSides.length-1; i++) {
+      let crossing = Number(this.crossedSides[i+1]) - Number(this.crossedSides[i]);
+      let ncrossed = Math.ceil(crossing/50);
+      console.log(ncrossed)
+      difference.push(ncrossed) //*2
+    }
+    console.log(difference)
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
