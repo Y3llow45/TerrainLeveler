@@ -30,6 +30,8 @@ export class InputComponent {
   crossedSides: Array<string> = [];
   crossedSidesLevel: Array<number> = [];
 
+  crossedTriangles: Array<number> = [];
+
   drawLine(a:number, b:number, c:number, d:number, color:string) {
     const canvas = this.canvas.nativeElement;
     if (!canvas) {
@@ -83,7 +85,10 @@ export class InputComponent {
     };
   }
   calc() {
-    let squareSizeInputField = document.getElementById(`square-size`)
+    let squareSizeInputField = document.getElementById(`square-size`);
+    this.crossedTriangles = [];
+    this.crossedSides = [];
+    this.crossedSidesLevel = [];
     this.squareSize = Number((squareSizeInputField as HTMLInputElement).value);
     this.inputData = [];
     for(let i = 0; i < (this.verticalSquares+1)*(this.horizontalSquares+1); i++) {
@@ -259,14 +264,31 @@ export class InputComponent {
   }
 
   findIntersected( ) {
-    let difference = [];
+    console.log(`crossed sides = ${this.crossedSides}`)
+    /*let difference = [];
     for(let i = 0; i < this.crossedSides.length-1; i++) {
       let crossing = Number(this.crossedSides[i+1]) - Number(this.crossedSides[i]);
       let ncrossed = Math.ceil(crossing/50);
       console.log(ncrossed)
       difference.push(ncrossed) //*2
     }
-    console.log(difference)
+    console.log(difference)*/
+    for(let i = 0; i < this.crossedSides.length; i++) {
+      let found = this.crossedSidesLevel[i]*this.horizontalSquares*2+2*(Math.floor(Number(this.crossedSides[i])/50)+1);
+      if(this.direction == 'right') {
+        found = found-1;
+      }
+      this.crossedTriangles.push(found);
+      console.log(`${this.crossedSidesLevel[i]}*${this.horizontalSquares}*${2}+${Number(this.crossedSides[i])}*2   =   ${found}`)
+    }
+    console.log(this.crossedTriangles)
+    for(let i = 0; i < this.crossedTriangles.length-1; i++) {
+      if(this.crossedTriangles[i] < this.crossedTriangles[i+1]-this.horizontalSquares*2) {
+        for(let side = this.crossedTriangles[i]; side <= this.crossedTriangles[i+1]-this.horizontalSquares*2; i++){
+          console.log(side)
+        }
+      }
+    }
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
