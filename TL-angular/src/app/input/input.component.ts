@@ -291,31 +291,40 @@ export class InputComponent {
           this.crossedTriangles.push(side+this.crossedTrianglesSides[i]);
         }
       }
-      else if(this.crossedTrianglesSides[i] > Math.ceil(this.crossedTrianglesSides[i+1]-(this.horizontalSquares*2)) && this.direction == 'right') {
-        console.log('2')
+
+      else if(this.crossedTrianglesSides[i] > Math.ceil(this.crossedTrianglesSides[i+1]-(this.horizontalSquares*2))+1 && this.direction == 'right') {
+        console.log(`2 and this.direction is ${this.direction}`)
         console.log(`${this.crossedTrianglesSides[i]} > (${this.crossedTrianglesSides[i+1]}-${this.horizontalSquares}*2)`)
-        for(let side = 0; side <= Math.abs(((this.crossedTrianglesSides[i+1]-this.horizontalSquares*2)-1)-this.crossedTrianglesSides[i]); side++){
+        for(let side = 0; side <= Math.abs(((this.crossedTrianglesSides[i+1]-this.horizontalSquares*2))-this.crossedTrianglesSides[i])-1; side++){
+          console.log(`side = 0; Math.abs(((${this.crossedTrianglesSides[i+1]}-${this.horizontalSquares*2})-1)-${this.crossedTrianglesSides[i]})`)
+          console.log(Math.abs(((this.crossedTrianglesSides[i+1]-this.horizontalSquares*2)-1)-this.crossedTrianglesSides[i]))
+          console.log(`pushing this on 2: ${this.crossedTrianglesSides[i]-side}`)
           this.crossedTriangles.push(this.crossedTrianglesSides[i]-side);
         }
       }
+
       //left
       else if(this.crossedTrianglesSides[i] < Math.ceil(this.crossedTrianglesSides[i+1]-(this.horizontalSquares*2))) {
+        console.log(3)
         for(let side = 0; side <= ((this.crossedTrianglesSides[i+1]-this.horizontalSquares*2)-1)-this.crossedTrianglesSides[i]; side++){
           this.crossedTriangles.push(side+this.crossedTrianglesSides[i]);
         }
       }
       else if(this.crossedTrianglesSides[i] > Math.ceil(this.crossedTrianglesSides[i+1]-(this.horizontalSquares*2))) {
+        console.log(4)
         for(let side = 0; side <= Math.abs(((this.crossedTrianglesSides[i+1]-this.horizontalSquares*2))-this.crossedTrianglesSides[i]); side++){
           this.crossedTriangles.push(this.crossedTrianglesSides[i]-side);
         }
       }
       else {
-        console.log('3')
         this.crossedTriangles.push(this.crossedTrianglesSides[i]);
+        console.log(5)
         if(this.direction == 'right') {
           this.crossedTriangles.push(this.crossedTrianglesSides[i]+1);
+          console.log(`pushing this on else   -  ${this.crossedTrianglesSides[i]} and ${this.crossedTrianglesSides[i]+1}`)
         }else {
           this.crossedTriangles.push(this.crossedTrianglesSides[i]-1);
+          console.log(`pushing this on else   -  ${this.crossedTrianglesSides[i]} and ${this.crossedTrianglesSides[i]-1}`)
         }
         
       }
