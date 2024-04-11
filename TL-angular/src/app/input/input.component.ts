@@ -33,6 +33,8 @@ export class InputComponent {
   crossedTrianglesSides: Array<number> = [];
   crossedTriangles: Array<number> = [];
 
+  notCrossedTriangles: Array<number> = [];
+
   drawLine(a:number, b:number, c:number, d:number, color:string) {
     const canvas = this.canvas.nativeElement;
     if (!canvas) {
@@ -127,7 +129,6 @@ export class InputComponent {
     console.log(this.inputData)
     this.calcHk()
   }
-
   calcHk() {
     let h1_1 = this.inputData[0];
     let h1_2 = this.inputData[this.verticalSquares];
@@ -232,7 +233,6 @@ export class InputComponent {
     this.HoPoints = this.crossedSides
     this.drawTriangles(this.crossedSides)
   }
-
   drawTriangles(crossedSides: Array<string>) {
     let straight = true;
     for(let i = 0; i < crossedSides.length; i++) {
@@ -263,7 +263,6 @@ export class InputComponent {
     }
     this.findIntersected()
   }
-
   findIntersected( ) {
     console.log(`crossed sides = ${this.crossedSides}`)
     /*let difference = [];
@@ -330,6 +329,14 @@ export class InputComponent {
       }
     }
     console.log(this.crossedTriangles)
+    this.calcNotCrossed()
+  }
+  calcNotCrossed() {
+    let allTriangles = Array.from({length: this.horizontalSquares*this.verticalSquares*2}, (_, i) => i + 1);
+    this.notCrossedTriangles = allTriangles.filter(num => !this.crossedTriangles.includes(num));
+    for(let i = 0; i <= this.notCrossedTriangles.length-1; i++) {
+      console.log(this.notCrossedTriangles[i])
+    }
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
