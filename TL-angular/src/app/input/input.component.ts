@@ -332,10 +332,36 @@ export class InputComponent {
     this.calcNotCrossed()
   }
   calcNotCrossed() {
+    let a = Math.round(this.squareSize*this.squareSize/this.horizontalSquares*this.verticalSquares);
     let allTriangles = Array.from({length: this.horizontalSquares*this.verticalSquares*2}, (_, i) => i + 1);
     this.notCrossedTriangles = allTriangles.filter(num => !this.crossedTriangles.includes(num));
     for(let i = 0; i <= this.notCrossedTriangles.length-1; i++) {
-      console.log(this.notCrossedTriangles[i])
+      let triangle = this.notCrossedTriangles[i];
+      if(this.direction == 'right') {
+        if(triangle%2 !== 0) {
+          let heights = [];  ///% devision for level
+          let level;
+          if(triangle%(this.horizontalSquares*2) == 0) {
+            level = (triangle/this.horizontalSquares*2)-1;
+          }else {
+            level = triangle/this.horizontalSquares*2;
+            console.log(`${triangle}/${this.horizontalSquares}*2`)
+          }
+          let n = triangle-(this.horizontalSquares*2*level)
+          console.log(level+"  "+n)
+          heights.push(this.inputData[triangle-1])
+          heights.push(this.inputData[triangle])
+          heights.push(this.inputData[triangle])
+        }else {
+
+        }
+      }else {
+        if(i%2 !== 0) {
+          ///
+        }else {
+
+        }
+      }
     }
   }
 }
