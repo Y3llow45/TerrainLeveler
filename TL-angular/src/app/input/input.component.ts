@@ -342,13 +342,16 @@ export class InputComponent {
           let heights = [];  ///% devision for level
           let level;
           if(triangle%(this.horizontalSquares*2) == 0) {
-            level = (triangle/this.horizontalSquares*2)-1;
+            level = (triangle/(this.horizontalSquares*2))-1;
           }else {
-            level = triangle/this.horizontalSquares*2;
-            console.log(`${triangle}/${this.horizontalSquares}*2`)
+            level = Math.floor(triangle/(this.horizontalSquares*2));
+            if(triangle < this.horizontalSquares) {
+              level = 0;
+            }
+            console.log(`${triangle}/${this.horizontalSquares}*2  => ${level}`)
           }
           let n = triangle-(this.horizontalSquares*2*level)
-          console.log(level+"  "+n)
+          console.log(`${triangle}-(${this.horizontalSquares}*2*${level}) => ${n}`)
           heights.push(this.inputData[triangle-1])
           heights.push(this.inputData[triangle])
           heights.push(this.inputData[triangle])
