@@ -1,3 +1,4 @@
+import { publishFacade } from '@angular/compiler';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
@@ -335,11 +336,12 @@ export class InputComponent {
     let a = Math.round(this.squareSize*this.squareSize/this.horizontalSquares*this.verticalSquares);
     let allTriangles = Array.from({length: this.horizontalSquares*this.verticalSquares*2}, (_, i) => i + 1);
     this.notCrossedTriangles = allTriangles.filter(num => !this.crossedTriangles.includes(num));
+    let heights = [];  ///% devision for level
+    let levels = [];
     for(let i = 0; i <= this.notCrossedTriangles.length-1; i++) {
       let triangle = this.notCrossedTriangles[i];
       if(this.direction == 'right') {
         if(triangle%2 !== 0) {
-          let heights = [];  ///% devision for level
           let level;
           if(triangle%(this.horizontalSquares*2) == 0) {
             level = (triangle/(this.horizontalSquares*2))-1;
@@ -348,15 +350,33 @@ export class InputComponent {
             if(triangle < this.horizontalSquares) {
               level = 0;
             }
+            levels.push(level);
             console.log(`${triangle}/${this.horizontalSquares}*2  => ${level}`)
           }
           let n = triangle-(this.horizontalSquares*2*level)
           console.log(`${triangle}-(${this.horizontalSquares}*2*${level}) => ${n}`)
           heights.push(this.inputData[triangle-1])
           heights.push(this.inputData[triangle])
-          heights.push(this.inputData[triangle])
+          heights.push(this.inputData[triangle+(this.horizontalSquares*(level+1))])
         }else {
-
+          let level;
+          if(triangle%(this.horizontalSquares*2) == 0) {
+            level = (triangle/(this.horizontalSquares*2))-1;
+          }else {
+            level = Math.floor(triangle/(this.horizontalSquares*2));
+            if(triangle < this.horizontalSquares) {
+              level = 0;
+            }
+            levels.push(level);
+            console.log(`${triangle}/${this.horizontalSquares}*2  => ${level}`)
+          }
+          let n = triangle-(this.horizontalSquares*2*level)
+          console.log(`${triangle}-(${this.horizontalSquares}*2*${level}) => ${n}`)
+          heights.push(this.inputData[triangle-1])
+          heights.push(this.inputData[triangle])
+          console.log(triangle+(this.horizontalSquares*(level+1))+"  __   "+`${triangle}+(${this.horizontalSquares}*(${level}+1))`)
+          console.log(level)
+          heights.push(this.inputData[level==0 ? triangle+(this.horizontalSquares*(level+1)) : triangle+(this.horizontalSquares*(level))])
         }
       }else {
         if(i%2 !== 0) {
@@ -366,6 +386,7 @@ export class InputComponent {
         }
       }
     }
+    console.log(levels, heights)
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
