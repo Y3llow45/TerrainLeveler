@@ -392,7 +392,18 @@ export class InputComponent {
         }
       }
     }
+    this.calcVolume(levels, heights)
     console.log(levels, heights)
+  }
+  calcVolume(levels: Array<number>, heights: Array<number>) {
+    let volumes = [];
+    let a = Math.round(this.squareSize*this.squareSize/6);
+    for(let i = 0; i < levels.length; i++) {
+      let v = a * (this.Ho-heights[i*3], this.Ho-heights[1+(i*3)], this.Ho-heights[2+(i*3)]);
+      console.log(`${a} * (${this.Ho-heights[i*3]}, ${this.Ho-heights[1+(i*3)]}, ${this.Ho-heights[2+(i*3)]})`)
+      volumes.push(v.toFixed(2));
+    }
+    console.log(`Volumes: ${volumes.join(', ')}`)
   }
 }
 //Array(12) [ 55.24, 53.24, 49.04, 45.04, 60.54, 58.54, 55.04, 48.84, 67.64, 65.64, 59.64, 49.94 ]
