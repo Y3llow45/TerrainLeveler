@@ -364,11 +364,8 @@ export class InputComponent {
           if(level == 0){
             heights.push(this.inputData[triangle-1])
             heights.push(this.inputData[triangle])
-            heights.push(this.inputData[triangle+(this.horizontalSquares*(level+1))])
+            heights.push(this.inputData[triangle+this.horizontalSquares])
           }else {
-            /*heights.push(this.inputData[triangle-level-1])
-            heights.push(this.inputData[triangle-level-2])
-            heights.push(this.inputData[triangle-level-3+(this.horizontalSquares*2)])*/
             heights.push(this.inputData[triangle-level-(this.horizontalSquares*2-(triangle-(this.horizontalSquares*2*level)))])
             heights.push(this.inputData[triangle-1-level-(this.horizontalSquares*2-(triangle-(this.horizontalSquares*2*level)))])
             heights.push(this.inputData[(this.horizontalSquares*2)+triangle-2-level-(this.horizontalSquares*2-(triangle-(this.horizontalSquares*2*level)))])
@@ -376,9 +373,15 @@ export class InputComponent {
         }else {
           console.log('2')
           let n = triangle-(this.horizontalSquares*2*level)
-          heights.push(this.inputData[level==0 ?triangle-1 : triangle-(this.horizontalSquares*level)])
-          heights.push(this.inputData[level==0 ? triangle+(this.horizontalSquares*(level+1))-1 : triangle+(this.horizontalSquares*(level+1))])
-          heights.push(this.inputData[level==0 ? triangle+(this.horizontalSquares*(level+1)) : triangle+(this.horizontalSquares*(level+1))+1])
+          if(level == 0){
+            heights.push(this.inputData[triangle])
+            heights.push(this.inputData[triangle+1])
+            heights.push(this.inputData[triangle/2])
+          }else {
+            heights.push(this.inputData[triangle-1-level-(this.horizontalSquares*2-(triangle-1-(this.horizontalSquares*2*level)))])
+            heights.push(this.inputData[(this.horizontalSquares*2)+triangle-2-level-(this.horizontalSquares*2-(triangle-1-(this.horizontalSquares*2*level)))])
+            heights.push(this.inputData[(this.horizontalSquares*2)+triangle-level-3-(this.horizontalSquares*2-(triangle-1-(this.horizontalSquares*2*level)))])
+          }
         }
       }else {
         console.log('WHAT >>')
